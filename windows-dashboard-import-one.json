@@ -6,7 +6,6 @@
             "order": "1",
             "queriesList": [
                 {
-                    //"query": "sum by (hostname) (target_info{ostype=~'windows',hostname=~'.*'})",
                     "query": "sum by (hostname, runtime) (rate(system_network_io_bytes_total{direction='receive',ostype=~'windows',hostname=~'.*'}[5m]))",
                     "chart_type": "line",
                     "name": "N. 22 - Network Bytes Received",
