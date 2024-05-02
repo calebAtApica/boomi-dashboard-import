@@ -27,7 +27,7 @@
                 },
                 {
                     "query": "sum by (hostname) (target_info{ostype=~'windows',hostname=~'.*'})",
-                    "chart_type": "",
+                    "chart_type": "Table",
                     "name": "Atom Status",
                     "schema": "",
                     "options": {
