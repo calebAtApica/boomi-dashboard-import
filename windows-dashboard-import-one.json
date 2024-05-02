@@ -26,12 +26,12 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
-                    "chart_type": "counter",
-                    "name": "Current Head Node",
+                    "query": "sum by (hostname) (rate(system_network_io_bytes_total{ostype=~\"windows\",hostname=~\".*\",direction=\"transmit\"}[5m]))&duration={{duration}}&step={{step}}",
+                    "chart_type": "line",
+                    "name": "N. 21 - Network Bytes Sent",
                     "schema": "",
                     "options": {
-                        "description": "Current Head Node",
+                        "description": "N. 21 - Network Bytes Sent",
                         "label": "% Avg",
                         "order": 2,
                         "plot" : {
