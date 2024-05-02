@@ -29,19 +29,9 @@
                     "query": "sum by (hostname) (target_info{ostype=~'windows',hostname=~'.*'})",
                     "chart_type": "Table",
                     "name": "Atom Status",
-                    "schema": "",
+                    "schema": "target_info",
                     "options": {
-                        "description": "Atom Status",
-                        "label": "",
-                        "order": 2,
-                        "plot" : {
-                            "xLabel" : "Timestamp",
-                            "yLabel": "value",
-                            "x" : "Timestamp",
-                            "y": ["value"],
-                            "groupBy": "",
-                            "errorColumn": ""
-                        }
+
                     },
                     "data_source_name": "Apica Monitoring"
                 },
