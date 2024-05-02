@@ -26,13 +26,13 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
-                    "chart_type": "counter",
-                    "name": "Current Head Node",
+                    "query": "sum by (hostname) (target_info{ostype=~'windows',hostname=~'.*'})",
+                    "chart_type": "",
+                    "name": "Atom Status",
                     "schema": "",
                     "options": {
-                        "description": "Current Head Node",
-                        "label": "% Avg",
+                        "description": "Atom Status",
+                        "label": "",
                         "order": 2,
                         "plot" : {
                             "xLabel" : "Timestamp",
