@@ -46,6 +46,25 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
+                    "query": "100* (sum by (device, hostname) (system_filesystem_usage_bytes{state='used',device='C:',hostname='Windows.*'}) /sum by (device, hostname) (system_filesystem_usage_bytes{state=~\"free|used\",device=\"C:\"}))&duration={{duration}}&step={{step}}",
+                    "chart_type": "line",
+                    "name": "N. 25 % Used Disk Space",
+                    "schema": "",
+                    "options": {
+                        "label": "",
+                        "order": 1,
+                        "plot" : {
+                            "xLabel" : "Timestamp",
+                            "yLabel": "value",
+                            "x" : "Timestamp",
+                            "y": ["value"],
+                            "groupBy": "hostname",
+                            "errorColumn": ""
+                        }
+                    },
+                    "data_source_name": "Apica Monitoring"
+                },
+                {
                     "query": "avg(round(100 - processor_idle_time{exported_instance='0,_Total',hostname=~'.*'}, 0.01))",
                     "chart_type": "gauge",
                     "name": "CPU Utilization",
@@ -88,25 +107,6 @@
                             "x" : "Timestamp",
                             "y": ["value"],
                             "groupBy": "",
-                            "errorColumn": ""
-                        }
-                    },
-                    "data_source_name": "Apica Monitoring"
-                },
-                {
-                    "query": "round(avg by (hostname) (system_cpu_load_average_5m{ostype=~'windows',hostname=~'.*'}), 0.01)*100",
-                    "chart_type": "counter",
-                    "name": "Load Average",
-                    "schema": "",
-                    "options": {
-                        "label": "",
-                        "order": 5,
-                        "plot" : {
-                            "xLabel" : "Timestamp",
-                            "yLabel": "value",
-                            "x" : "Timestamp",
-                            "y": ["value"],
-                            "groupBy": "hostname",
                             "errorColumn": ""
                         }
                     },
