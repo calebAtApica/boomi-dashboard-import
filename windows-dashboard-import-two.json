@@ -6,13 +6,13 @@
             "order": "1",
             "queriesList": [
                 {
-                    "query": "avg(sum by (hostname) (sum(jvm_uptime{ostype=~'windows'})/3600000))",
+                    "query": "round (avg(sum by (hostname) (sum(jvm_uptime{ostype=~'windows'})/3600000)), 0.01)",
                     "chart_type": "counter",
                     "name": "JVM Uptime",
                     "schema": "",
                     "options": {
                         "description": "JVM Uptime",
-                        "label": "Actual",
+                        "label": "Hours of JVM Uptime",
                         "order": 1,
                         "plot" : {
                             "xLabel" : "Timestamp",
