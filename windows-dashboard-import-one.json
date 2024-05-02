@@ -6,7 +6,7 @@
             "order": "1",
             "queriesList": [
                 {
-                    "query": "sum by (hostname, runtime) (rate(system_network_io_bytes_total{direction='receive',ostype=~'windows',hostname=~'.*'}[5m]))",
+                    "query": "sum by (hostname, runtime) (rate(system_network_io_bytes_total{direction='receive',ostype=~'windows',hostname=~'.*'}[5m]))&duration=6h&step=15m",
                     "chart_type": "line",
                     "name": "N. 22 - Network Bytes Received",
                     "schema": "system_network_io_bytes_total",
@@ -26,7 +26,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "sum by (hostname) (rate(system_network_io_bytes_total{ostype=~\"windows\",hostname=~\".*\",direction=\"transmit\"}[5m]))&duration={{duration}}&step={{step}}",
+                    "query": "sum by (hostname) (rate(system_network_io_bytes_total{ostype=~\"windows\",hostname=~\".*\",direction=\"transmit\"}[5m]))&duration=6h&step=15m",
                     "chart_type": "line",
                     "name": "N. 21 - Network Bytes Sent",
                     "schema": "",
@@ -46,7 +46,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "100* (sum by (device, hostname) (system_filesystem_usage_bytes{state='used',device='C:',hostname='Windows.*'}) /sum by (device, hostname) (system_filesystem_usage_bytes{state=~\"free|used\",device=\"C:\"}))&duration={{duration}}&step={{step}}",
+                    "query": "100* (sum by (device, hostname) (system_filesystem_usage_bytes{state='used',device='C:',hostname='Windows.*'}) /sum by (device, hostname) (system_filesystem_usage_bytes{state=~\"free|used\",device=\"C:\"}))&duration=6h&step=15m",
                     "chart_type": "line",
                     "name": "N. 25 % Used Disk Space",
                     "schema": "",
