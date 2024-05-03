@@ -1,15 +1,15 @@
 {
     "tabs": [
         {
-            "key": "caleb-example-dashboard",
-            "title": "Caleb Example Dashboard",
+            "key": "overview",
+            "title": "Overview",
             "order": "1",
             "queriesList": [
                 {
-                    "query": "sum by (hostname, runtime) (rate(system_network_io_bytes_total{direction='receive',ostype=~'windows',hostname=~'.*'}[5m]))&duration=6h&step=15m",
-                    "chart_type": "line",
-                    "name": "N. 22 - Network Bytes Received",
-                    "schema": "system_network_io_bytes_total",
+                    "query": "sum by (hostname) (target_info{ostype=~'windows',hostname=~'.*'})",
+                    "chart_type": "Table",
+                    "name": "Atom Status",
+                    "schema": "target_info",
                     "options": {
                         "description": "Atom Status",
                         "label": "Actual",
@@ -26,12 +26,12 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "sum by (hostname) (rate(system_network_io_bytes_total{ostype=~\"windows\",hostname=~\".*\",direction=\"transmit\"}[5m]))&duration=6h&step=15m",
-                    "chart_type": "line",
-                    "name": "N. 21 - Network Bytes Sent",
+                    "query": "",
+                    "chart_type": "counter",
+                    "name": "Current Head Node",
                     "schema": "",
                     "options": {
-                        "description": "N. 21 - Network Bytes Sent",
+                        "description": "Current Head Node",
                         "label": "% Avg",
                         "order": 2,
                         "plot" : {
@@ -40,25 +40,6 @@
                             "x" : "Timestamp",
                             "y": ["value"],
                             "groupBy": "",
-                            "errorColumn": ""
-                        }
-                    },
-                    "data_source_name": "Apica Monitoring"
-                },
-                {
-                    "query": "100* (sum by (device, hostname) (system_filesystem_usage_bytes{state='used',device='C:',hostname='Windows.*'}) /sum by (device, hostname) (system_filesystem_usage_bytes{state=~\"free|used\",device=\"C:\"}))&duration=6h&step=15m",
-                    "chart_type": "line",
-                    "name": "N. 25 % Used Disk Space",
-                    "schema": "",
-                    "options": {
-                        "label": "",
-                        "order": 1,
-                        "plot" : {
-                            "xLabel" : "Timestamp",
-                            "yLabel": "value",
-                            "x" : "Timestamp",
-                            "y": ["value"],
-                            "groupBy": "hostname",
                             "errorColumn": ""
                         }
                     },
@@ -107,6 +88,25 @@
                             "x" : "Timestamp",
                             "y": ["value"],
                             "groupBy": "",
+                            "errorColumn": ""
+                        }
+                    },
+                    "data_source_name": "Apica Monitoring"
+                },
+                {
+                    "query": "round(avg by (hostname) (system_cpu_load_average_5m{ostype=~'windows',hostname=~'.*'}), 0.01)*100",
+                    "chart_type": "counter",
+                    "name": "Load Average",
+                    "schema": "",
+                    "options": {
+                        "label": "",
+                        "order": 5,
+                        "plot" : {
+                            "xLabel" : "Timestamp",
+                            "yLabel": "value",
+                            "x" : "Timestamp",
+                            "y": ["value"],
+                            "groupBy": "hostname",
                             "errorColumn": ""
                         }
                     },
