@@ -46,7 +46,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "avg(round(100 - processor_idle_time{exported_instance='0,_Total',hostname=~'.*'}, 0.01))",
+                    "query": "avg(round(100 - processor_idle_time{exported_instance='0,_Total'}, 0.01))",
                     "chart_type": "gauge",
                     "name": "CPU Utilization",
                     "schema": "processor_idle_time",
@@ -113,7 +113,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "avg(sum by (hostname) (sum(jvm_uptime{ostype=~'windows',hostname=~'.*'})/2/3600000))",
+                    "query": "round (avg(sum by (hostname) (sum(jvm_uptime{ostype=~'windows'})/3600000)), 0.01)",
                     "chart_type": "counter",
                     "name": "JVM Uptime",
                     "schema": "jvm_uptime",
@@ -153,7 +153,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "avg by (hostname) (round(100 - logicaldisk_percent_free_space{hostname=~'.*'}, 0.01)))",
+                    "query": "100* (sum by (device, hostname) (system_filesystem_usage_bytes{state='used',ostype='windows',hostname=~'.*',device='C:'}) /sum by (device, hostname) (system_filesystem_usage_bytes{state=~"free|used",ostype='windows',hostname=~'.*',device='C:'}))&duration=1h&step=5m",
                     "chart_type": "disk",
                     "name": "Local Storage Space",
                     "schema": "logicaldisk_percent_free_space",
@@ -231,7 +231,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "avg(sum by (hostname) (handle_count_Count{hostname=~'.*'}))",
+                    "query": "avg(sum by (hostname) (handle_count_Count))",
                     "chart_type": "counter",
                     "name": "Open File Descriptors",
                     "schema": "open_fd_count",
@@ -258,7 +258,7 @@
             "order": "2",
             "queriesList": [
                 {
-                    "query": "max(round(sum by (hostname) (100 - processor_idle_time{exported_instance='0,_Total',hostname=~'.*'}), 0.01))&duration=6h&step=15m",
+                    "query": "max(round(sum by (hostname) (100 - processor_idle_time{exported_instance='0,_Total'}), 0.01))&duration=6h&step=15m",
                     "chart_type": "line",
                     "name": "CPU Utilization (Max)",
                     "schema": "processor_idle_time",
@@ -277,7 +277,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "avg(round(sum by (hostname) (100 - processor_idle_time{exported_instance='0,_Total',hostname=~'.*'}), 0.01))&duration=6h&step=15m",
+                    "query": "avg(round(sum by (hostname) (100 - processor_idle_time{exported_instance='0,_Total'}), 0.01))&duration=6h&step=15m",
                     "chart_type": "line",
                     "name": "CPU Utilization (Avg)",
                     "schema": "processor_idle_time",
@@ -296,7 +296,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "max(round(avg by (hostname) (system_cpu_load_average_5m{ostype=~'windows',hostname=~'.*'}), 0.01))&duration=1h&step=5m",
                     "chart_type": "line",
                     "name": "Load Average (max)",
                     "schema": "",
@@ -315,7 +315,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "avg(round(avg by (hostname) (system_cpu_load_average_5m{ostype=~'windows',hostname=~'.*'}), 0.01))&duration=1h&step=5m",
                     "chart_type": "line",
                     "name": "Load Average (avg)",
                     "schema": "system_cpu_time_seconds_total",
@@ -334,7 +334,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "sum by (__name__, hostname)({__name__=~"memory_available_bytes|memory_committed_bytes",ostype='windows',hostname=~'.*'})&duration=1h&step=5m",
                     "chart_type": "line",
                     "name": "Machine Memory Utilization",
                     "schema": "system_network_io_bytes_total",
@@ -391,7 +391,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "sum by (hostname) (rate(system_network_io_bytes_total{hostname=~'.*',direction="transmit",ostype="windows"}[5m]))&duration=12h&step=10m",
                     "chart_type": "line",
                     "name": "Network Bytes Sent",
                     "schema": "system_memory_usage_bytes",
@@ -410,7 +410,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "sum by (hostname) (rate(system_network_io_bytes_total{hostname=~'.*',direction="receive",ostype="windows"}[5m]))&duration=12h&step=10m",
                     "chart_type": "line",
                     "name": "Network Bytes Received",
                     "schema": "system_memory_usage_bytes",
@@ -455,7 +455,7 @@
             "order": "3",
             "queriesList": [
                 {
-                    "query": "",
+                    "query": "(system_filesystem_usage_bytes{state=~'.*',ostype='windows',,device='C:'}) or (system_filesystem_usage_bytes{state=~'free',ostype='windows',hostname=~'.*',device='/dev/sda1'})&duration=30m&step=5m",
                     "chart_type": "line",
                     "name": "Local Storage Space",
                     "schema": "",
@@ -531,7 +531,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "sum by (hostname) (system_disk_io_bytes_total{direction="write",ostype='windows',hostname=~'.*'}/3600000)&duration=1h&step=15m",
                     "chart_type": "line",
                     "name": "Local Storage Write I/O",
                     "schema": "",
@@ -550,7 +550,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "sum by (hostname) (system_disk_io_bytes_total{direction="read",ostype='windows',hostname=~'.*'}/3600000)&duration=1h&step=15m",
                     "chart_type": "line",
                     "name": "Local Storage Read I/O",
                     "schema": "",
@@ -690,14 +690,14 @@
             "order": "4",
             "queriesList": [
                 {
-                    "query": "",
+                    "query": "sum by (__name__, hostname)({__name__=~"heap_memory_usage_used|heap_memory_usage_max",ostype='windows',hostname=~'.*'})&duration=1h&step=5m",
                     "chart_type": "line",
                     "name": "Heap Usage",
                     "schema": "process_runtime_jvm_memory_usage_bytes",
                     "options": {
                         "label": "Used vs Max",
                         "order": 1,
-                        "plot" : {
+                        "plot`" : {
                             "xLabel" : "Timestamp",
                             "yLabel": "value",
                             "x" : "Timestamp",
@@ -709,7 +709,7 @@
                     "data_source_name": "Apica Monitoring"
                 },
                 {
-                    "query": "",
+                    "query": "100* (heap_memory_usage_used{hostname=~'.*',ostype='windows'})/(heap_memory_usage_max{hostname=~'.*',ostype='windows'})&duration=1h&step=5m",
                     "chart_type": "line",
                     "name": "Heap Usage",
                     "schema": "process_runtime_jvm_memory_usage_bytes",
@@ -804,6 +804,11 @@
                     "data_source_name": "Apica Monitoring"
                 }
             ]
+        }, {
+            "key": "application",
+            "title": "Application",
+            "order": "5",
+            "queriesList": []
         }
     ],
     "header": {
